@@ -10,6 +10,20 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader', 'source-map-loader']
+      },
+      {
+        test: /\.(css|scss|sass)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        enforce: 'pre'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
       }
     ]
   },
