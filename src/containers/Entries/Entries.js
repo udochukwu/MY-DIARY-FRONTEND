@@ -5,6 +5,7 @@ import { getEntries, deleteEntry } from '../../requests/EntriesRequests';
 import Header from '../Header/Header';
 import Footer from '../../components/Footer/Footer';
 import DisplayEntry from '../../components/DisplayEntry/DisplayEntry';
+import Loader from '../../components/Loader/Loader';
 import './Entries.scss';
 
 class Entries extends Component {
@@ -26,7 +27,16 @@ class Entries extends Component {
         />
       ));
     }
-    return <tr><td>No entries yet</td><td></td></tr>;
+    return <tr>
+             <td>No entries yet</td>
+             <td className="text-right">
+               <a className="text-dark" href="/entries/new">
+                  <span className="mx-2 ">
+                    <i className="fas fa-plus-circle"></i>
+                  </span>
+              </a>
+             </td>
+      </tr>;
   }
 
   render() {
@@ -46,7 +56,7 @@ class Entries extends Component {
                 </tr>
               </thead>
               <tbody>
-                {success ? this.showEntries() : <tr className="center no-tags"><td>loading...</td><td></td></tr>}
+                {success ? this.showEntries() : <tr className="center no-tags"><td><Loader/></td><td></td></tr>}
               </tbody>
             </table>
           </div>

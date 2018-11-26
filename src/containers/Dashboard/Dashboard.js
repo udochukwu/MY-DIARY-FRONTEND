@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getEntries } from '../../requests/EntriesRequests';
-import Header from '../Header/Header';
-import Footer from '../../components/Footer/Footer';
 import Avatar from '../../assets/images/diary.png';
+import Footer from '../../components/Footer/Footer';
+import Header from '../Header/Header';
+import Loader from '../../components/Loader/Loader';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -22,11 +23,11 @@ class Dashboard extends Component {
         <section className="row py-5">
             <div className="summary bg-light text-center py-5">
                 <h1>My Diary</h1>
-                <img src={Avatar} className="mb-2"/>
-                <h2>Entries: <span className="text-success" id="entriesCount"> {success ? entries.length : 'loading..'}</span></h2>
+                <img src={Avatar} className="mb-2 avatar-image"/>
+                <h2>Entries: <span className="theme-color" id="entriesCount"> {success ? entries.length : <Loader type={'bounce'} />}</span></h2>
                 <div className="row text-center">
                     <div className="col-30">
-                      <a className="text-dark" href="/new_entry">
+                      <a className="text-dark" href="/entries/new">
                         <span className="mx-2 ">
                           <i className="fas fa-plus-circle"></i>
                         </span>

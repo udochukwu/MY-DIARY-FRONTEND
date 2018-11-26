@@ -52,7 +52,7 @@ class Header extends Component {
           </div>
           <ul>
             <li><Link to="/entries"><span className="mx-3"><i className="fas fa-book"></i></span>Entries</Link></li>
-            <li><a href="/new_entry"><span className="mx-3"><i className="fas fa-pencil-alt"></i></span>Write</a></li>
+            <li><a href="/entries/new"><span className="mx-3"><i className="fas fa-pencil-alt"></i></span>Write</a></li>
             <li><Link to="#"><span className="mx-3"><i className="far fa-bell"></i></span>Notifications</Link></li>
             <li><Link to="#"><span className="mx-3"><i className="fas fa-cog"></i></span>Account Settings</Link></li>
             <li><Link to="#"><span className="mx-3"><i className="fas fa-hands-helping"></i></span>Help & FAQs</Link></li>
@@ -65,7 +65,7 @@ class Header extends Component {
             <li className="float-left"><a href="/dashboard">My Diary</a></li>
             <span className="laptop-display">
               <li className="dropdown  mr-3 ml-5 float-right">
-                <a className="active" href="#">Nelson <span><i className="ml-1 fas fa-sort-down"></i></span></a>
+                <Link className="active" to="/dasnoard">Nelson <span><i className="ml-1 fas fa-sort-down"></i></span></Link>
                 <div className="dropdown-content text-dark text-left">
                   <Link to="#"><span className="mx-3"><i className="fas fa-cog"></i></span>Account Settings </Link>
                   <Link to="#"><span className="mx-3"><i className="fas fa-hands-helping"></i></span>Help & FAQs</Link>
@@ -73,7 +73,7 @@ class Header extends Component {
                 </div>
               </li>
               <li className="mr-5 float-right">
-                <a href="new_entry">
+                <a href="/entries/new">
                   <span className="mx-3">
                     <i className="fas fa-plus-circle"></i>
                   </span>
