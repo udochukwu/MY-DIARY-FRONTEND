@@ -2,36 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './Signup.scss';
 import AlertCard from '../../components/AlertCard/AlertCard';
-import { signup } from '../../requests/AuthRequests';
+import { login } from '../../requests/AuthRequests';
+import './Login.scss';
 
-
-class Signup extends Component {
+class Login extends Component {
   constructor() {
     super();
 
 
-    this.initialState = { email: '', password: '', confirmPassword: '' };
+    this.initialState = { email: '', password: '' };
 
     this.state = { ...this.initialState };
 
     this.change = this.change.bind(this);
     this.submit = this.submit.bind(this);
-    this.redirectToLogin = this.redirectToLogin.bind(this);
-  }
-
-  redirectToLogin() {
-    this.props.history.push('/login');
+    this.redirectToDashboard = this.redirectToDashboard.bind(this);
   }
 
   change(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
 
   submit(e) {
     e.preventDefault();
-    this.props.signup(this.state);
+    this.props.login(this.state);
   }
 
   showAlert(alertType, datas = { something: ' ' }) {
@@ -40,13 +37,20 @@ class Signup extends Component {
     );
   }
 
+  redirectToDashboard() {
+    this.props.history.push('/dashboard');
+  }
+
   render() {
-    const { email, password, confirmPassword } = this.state;
-    const { errors, failure, success, loading } = this.props;
-    if (success) {
-      setTimeout(this.redirectToLogin, 5000);
+    const { email, password } = this.state;
+    const {
+      errors, failure, success, loading, isAuth
+    } = this.props;
+
+    if (isAuth) {
+      this.redirectToDashboard();
     }
-    let emailError, passwordError, confirmPasswordError = false;
+    let emailError, passwordError = false;
     if (failure) {
       if (errors.errors.email) {
         emailError = true;
@@ -54,18 +58,16 @@ class Signup extends Component {
       if (errors.errors.password) {
         passwordError = true;
       }
-      if (errors.errors.confirmPassword) {
-        confirmPasswordError = true;
-      }
     }
+
     return (
-      <div className="signup-modal">
+      <div className="login-modal">
         <div className="my_modal_content">
           <div className="modal-body ">
-            <div>
-              <form onSubmit={this.submit}>
-               {this.props.failure && this.showAlert('error', this.props.errors.errors)}
-               {success && this.showAlert('success', 'Account was successfully created, login to continue..')}
+            <div className="">
+            <form onSubmit={this.submit}>
+                {failure && this.showAlert('error', this.props.errors.errors)}
+                {success && this.showAlert('success', 'Logged in!')}
                 <label htmlFor="email"><b>Email</b></label>
                 <input
                   type="email"
@@ -88,26 +90,15 @@ class Signup extends Component {
                   className={passwordError ? 'hasError' : ''}
                 />
 
-                <label htmlFor="psw"><b>Confirm Password</b></label>
-                <input
-                  type="password"
-                  placeholder="Re-Enter Password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={this.change}
-                  className={confirmPasswordError ? 'hasError' : ''}
-                />
-
                 <button
-                  className="signup-button"
+                  className="login-button"
                   type="submit"
                   value="login" >
-                  { loading ? 'loading...' : 'Register' }
+                  {loading ? 'Loading...' : 'Login'}
                 </button>
                 <div className="text-center">
                   <p>
-                    <small>Already have an account? <Link className="no-deco" to="/login">Login</Link></small>
+                    <small>Dont have an account? <Link className="no-deco" to="/signup">Signup</Link></small>
                   </p>
                   <small className="mt-4"><Link to="/" className="custom-a"><i className="fas fa-long-arrow-alt-left"></i> Back to home</Link></small>
                 </div>
@@ -119,20 +110,22 @@ class Signup extends Component {
     );
   }
 }
-Signup.propTypes = {
+Login.propTypes = {
   loading: PropTypes.bool,
   success: PropTypes.bool,
   failure: PropTypes.bool,
+  isAuth: PropTypes.bool,
   errors: PropTypes.object,
-  signup: PropTypes.func.isRequired,
-  history: PropTypes.object
+  login: PropTypes.func.isRequired,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   loading: state.user.loading,
   success: state.user.success,
   failure: state.user.failure,
-  errors: state.user.errors
+  errors: state.user.errors,
+  isAuth: state.user.isAuth,
 });
 
-export default connect(mapStateToProps, { signup })(withRouter(Signup));
+export default connect(mapStateToProps, { login })(withRouter(Login));
