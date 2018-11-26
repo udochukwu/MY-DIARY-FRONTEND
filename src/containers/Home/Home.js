@@ -1,37 +1,26 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getText } from '../../requests/HomeRequests';
+import LandingHeader from '../../components/LandingHeader/LandingHeader';
+import Footer from '../../components/Footer/Footer';
 import './Home.scss';
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.getText();
-  }
-
   render() {
-    const { success, text } = this.props;
     return (
-      <div>
-        <h1 className="theme-color">{ success ? text : 'loading...'}</h1>
+      <div className="main-wrapper">
+        <LandingHeader/>
+        <section className="section-1">
+            <div className="row">
+                <div className="home-texts">
+                    <h1>My Diary</h1>
+                    <p>Pen down your thoughts and feelings! What more? Its free!</p>
+                    <a href="/signup" id="bigRegisterBtn"><span>Get Started</span></a>
+                </div>
+            </div>
+        </section>
+        <Footer/>
       </div>
     );
   }
 }
 
-Home.propTypes = {
-  loading: PropTypes.bool,
-  success: PropTypes.bool,
-  failure: PropTypes.bool,
-  text: PropTypes.string,
-  getText: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  loading: state.home.loading,
-  success: state.home.success,
-  failure: state.home.failure,
-  text: state.home.text,
-});
-
-export default connect(mapStateToProps, { getText })(Home);
+export default Home;

@@ -20,10 +20,19 @@ describe('<Home/>', () => {
         <Home />
       </Provider>
     );
-    myComponent = component.dive({ context: { store } }).dive();
+    myComponent = component.shallow({ context: { store } }).shallow();
     expect(component.exists()).toBe(true);
   });
-  it('should have h1 with theme colour class', () => {
-    expect(myComponent.find('h1.theme-color').exists()).toBe(true);
+  it('should have a main wrapper', () => {
+    expect(myComponent.find('div.main-wrapper').exists()).toBe(true);
+  });
+  it('should have a section tag with className section-1', () => {
+    expect(myComponent.find('section.section-1').exists()).toBe(true);
+  });
+  it('should have a H1 tag', () => {
+    expect(myComponent.find('h1').exists()).toBe(true);
+  });
+  it('should have a P tag', () => {
+    expect(myComponent.find('p').exists()).toBe(true);
   });
 });
