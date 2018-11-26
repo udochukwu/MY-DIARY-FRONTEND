@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import './LandingHeader.scss';
 
 class LandingHeader extends Component {
@@ -7,13 +8,13 @@ class LandingHeader extends Component {
       <div>
         <nav className="row">
           <div className="logo-div">
-            <h4><a href="#">My Diary</a></h4>
+            <h4>< Link to="/">My Diary</Link></h4>
           </div>
           <div className="signup-signin-div">
             <h4>
-              <a id="" href="/signup">Sign Up</a>
+              <Link id="" to="/signup">Sign Up</Link>
               <span className="mx-3 text-white">|</span>
-              <a id="" href="/login">Login</a>
+              <Link id="" to="/login">Login</Link>
             </h4>
           </div>
         </nav>
