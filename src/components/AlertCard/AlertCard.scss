@@ -1,0 +1,22 @@
+.alert-card{
+    ul{
+        border-radius: 10px;
+        padding-left:30px !important;
+        margin-bottom: 20px;
+        padding: 5px 0px;
+    }
+    li{
+        list-style-type: circle !important;
+        text-align: left;
+    }
+    .error {
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        background-color: #f8d7da;
+    }
+    .success {
+        color: #0a3001;
+        background-color: #d4edda;
+        border-color: 1px solid #c3e6cb;
+    }
+}
