@@ -1,8 +1,22 @@
 import axios from 'axios';
 import { asyncActions } from '../util/AsyncUtil';
-import { ALL_ENTRIES, DELETE_ENTRY } from '../actionTypes/EntriesConstants';
+import { ALL_ENTRIES, DELETE_ENTRY, CREATE_ENTRY } from '../actionTypes/EntriesConstants';
 import { entriesConstant } from '../constants/Constants';
 
+export const createEntry = payload => (dispatch) => {
+  dispatch(asyncActions(CREATE_ENTRY).loading(true));
+  return axios.post(entriesConstant.ENTRIES_URL, payload)
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(asyncActions(CREATE_ENTRY).success(response.data.entries));
+      }
+      return response;
+    })
+    .catch((error) => {
+      dispatch(asyncActions(CREATE_ENTRY).failure(true, error.response.data.errors));
+      throw error;
+    });
+};
 
 export const getEntries = payload => (dispatch) => {
   dispatch(asyncActions(ALL_ENTRIES).loading(true));
@@ -10,7 +24,8 @@ export const getEntries = payload => (dispatch) => {
     .then((response) => {
       dispatch(asyncActions(ALL_ENTRIES).loading(false));
       if (response.status === 200) {
-        dispatch(asyncActions(ALL_ENTRIES).success(response.data.entries));
+        const entries = response.data.entries.reverse();
+        dispatch(asyncActions(ALL_ENTRIES).success(entries));
       }
       return response;
     })

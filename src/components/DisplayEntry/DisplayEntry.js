@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import truncatise from 'truncatise';
 import moment from 'moment';
+import './DisplayEntry.scss';
 
 const DisplayEntry = (props) => {
   const options = {
-    TruncateLength: 30,
+    TruncateLength: 50,
     TruncateBy: 'characters',
     Strict: false,
     StripHTML: true,
@@ -17,7 +18,7 @@ const DisplayEntry = (props) => {
   };
 
   return (
-    <tr>
+    <tr className="entry-row">
       <td>
         <h4><a href={`entries/${props.entryid}`}>{props.entrytitle}</a></h4>
         <p>{truncatise(props.entrycontent, options)}</p>
