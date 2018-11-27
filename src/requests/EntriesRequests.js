@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { asyncActions } from '../util/AsyncUtil';
-import { ALL_ENTRIES, DELETE_ENTRY, CREATE_ENTRY, VIEW_ENTRY } from '../actionTypes/EntriesConstants';
+import { ALL_ENTRIES, DELETE_ENTRY, CREATE_ENTRY, VIEW_ENTRY, UPDATE_ENTRY } from '../actionTypes/EntriesConstants';
 import { entriesConstant } from '../constants/Constants';
 
 export const createEntry = payload => (dispatch) => {
@@ -60,13 +60,28 @@ export const getEntry = payload => (dispatch) => {
     .then((response) => {
       dispatch(asyncActions(VIEW_ENTRY).loading(false));
       if (response.status === 200) {
-        dispatch(asyncActions(VIEW_ENTRY).success(response.data.entries));
+        dispatch(asyncActions(VIEW_ENTRY).success(true));
       }
       return response;
     })
     .catch((error) => {
       dispatch(asyncActions(VIEW_ENTRY).loading(false));
       dispatch(asyncActions(VIEW_ENTRY).failure(true, error.response.data));
+      throw error;
+    });
+};
+
+export const updateEntry = payload => (dispatch) => {
+  dispatch(asyncActions(UPDATE_ENTRY).loading(true));
+  return axios.put(`${entriesConstant.ENTRIES_URL}/${payload.entryId}`, payload.data)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(asyncActions(UPDATE_ENTRY).success(response.data.entries));
+      }
+      return response;
+    })
+    .catch((error) => {
+      dispatch(asyncActions(UPDATE_ENTRY).failure(true, error.response.data.errors));
       throw error;
     });
 };
