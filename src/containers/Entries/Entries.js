@@ -52,7 +52,17 @@ class Entries extends Component {
               <thead>
                 <tr>
                   <th><h2>Entries</h2></th>
-                  <th></th>
+                  <th>
+                  {
+                    entries.length
+                      ? <a className="text-dark" href="/entries/new">
+                          <span className="mx-2 ">
+                            <i className="fas fa-plus-circle"></i>
+                          </span>
+                        </a>
+                      : ''
+                  }
+                  </th>
                 </tr>
               </thead>
               <tbody>
