@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { asyncActions } from '../util/AsyncUtil';
-import { ALL_ENTRIES, DELETE_ENTRY, CREATE_ENTRY } from '../actionTypes/EntriesConstants';
+import { ALL_ENTRIES, DELETE_ENTRY, CREATE_ENTRY, VIEW_ENTRY } from '../actionTypes/EntriesConstants';
 import { entriesConstant } from '../constants/Constants';
 
 export const createEntry = payload => (dispatch) => {
@@ -50,6 +50,23 @@ export const deleteEntry = payload => (dispatch) => {
     .catch((error) => {
       dispatch(asyncActions(DELETE_ENTRY).loading(false));
       dispatch(asyncActions(DELETE_ENTRY).failure(true, error.response.data));
+      throw error;
+    });
+};
+
+export const getEntry = payload => (dispatch) => {
+  dispatch(asyncActions(VIEW_ENTRY).loading(true));
+  return axios.get(`${entriesConstant.ENTRIES_URL}/${payload}`)
+    .then((response) => {
+      dispatch(asyncActions(VIEW_ENTRY).loading(false));
+      if (response.status === 200) {
+        dispatch(asyncActions(VIEW_ENTRY).success(response.data.entries));
+      }
+      return response;
+    })
+    .catch((error) => {
+      dispatch(asyncActions(VIEW_ENTRY).loading(false));
+      dispatch(asyncActions(VIEW_ENTRY).failure(true, error.response.data));
       throw error;
     });
 };
