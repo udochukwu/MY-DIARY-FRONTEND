@@ -1,5 +1,6 @@
 # MY-DIARY-FRONTEND
 [![Build Status](https://travis-ci.org/udochukwu/MY-DIARY-FRONTEND.svg?branch=staging)](https://travis-ci.org/udochukwu/MY-DIARY-FRONTEND)
+[![Coverage Status](https://coveralls.io/repos/github/udochukwu/MyDiary/badge.svg?branch=develop)](https://coveralls.io/github/udochukwu/MyDiary?branch=develop)
 # MyDiary
 MyDiary is an online journal where users can pen down their thoughts and feelings.
 
