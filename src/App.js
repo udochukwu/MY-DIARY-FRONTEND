@@ -6,6 +6,7 @@ import Entries from './containers/Entries/Entries';
 import Home from './containers/Home/Home';
 import Login from './containers/Login/Login';
 import NewEntry from './containers/NewEntry/NewEntry';
+import ViewEntry from './containers/ViewEntry/ViewEntry';
 import PrivateRoute from './PrivateRoute';
 import Signup from './containers/Signup/Signup';
 
@@ -21,6 +22,7 @@ class App extends Component {
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/entries" component={Entries} />
             <PrivateRoute exact path="/entries/new" component={NewEntry} />
+            <PrivateRoute path="/entries/:entryid" component={ViewEntry} />
             <Route exact path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Redirect to="/" />
