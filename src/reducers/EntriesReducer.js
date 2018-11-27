@@ -1,4 +1,4 @@
-import { ALL_ENTRIES, CREATE_ENTRY, DELETE_ENTRY } from '../actionTypes/EntriesConstants';
+import { ALL_ENTRIES, CREATE_ENTRY, DELETE_ENTRY, UPDATE_ENTRY } from '../actionTypes/EntriesConstants';
 import { asyncActionName } from '../util/AsyncUtil';
 
 
@@ -34,6 +34,18 @@ const entriesReducer = (state = initialState, action = {}) => {
         ...state, success: true, loading: false, failure: false, entry: action.payload
       };
     case asyncActionName(CREATE_ENTRY).failure:
+      return {
+        ...state, errors: action.payload.error, failure: true, loading: false,
+      };
+    case asyncActionName(UPDATE_ENTRY).loading:
+      return {
+        ...state, loading: action.payload, failure: false
+      };
+    case asyncActionName(UPDATE_ENTRY).success:
+      return {
+        ...state, success: true, loading: false, failure: false
+      };
+    case asyncActionName(UPDATE_ENTRY).failure:
       return {
         ...state, errors: action.payload.error, failure: true, loading: false,
       };

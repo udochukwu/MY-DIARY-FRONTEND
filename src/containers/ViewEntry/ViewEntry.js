@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { getEntry } from '../../requests/EntriesRequests';
+import { getEntry, updateEntry } from '../../requests/EntriesRequests';
 import AlertCard from '../../components/AlertCard/AlertCard';
 import Header from '../Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -51,7 +51,7 @@ class ViewEntry extends Component {
 
   submit(e) {
     e.preventDefault();
-    this.props.getEntry(this.state);
+    this.props.updateEntry({ data: this.state, entryId: this.props.match.params.entryid });
   }
 
   redirectToEntries() {
@@ -61,9 +61,9 @@ class ViewEntry extends Component {
   render() {
     const { entryTitle, entryContent } = this.state;
     const { failure, errors, success, loading } = this.props;
-    if (success) {
-      this.redirectToEntries();
-    }
+    // if (success) {
+    //   this.redirectToEntries();
+    // }
 
     return (
       <div>
@@ -72,6 +72,7 @@ class ViewEntry extends Component {
           <div className="new-entry bg-white className py-5 className my-5 ">
             <form onSubmit={this.submit}>
             {failure && this.showAlert('error', errors)}
+            {success && this.showAlert('success', 'Entry successfully updated')}
               <input
                 className="title"
                 placeholder="Entry Title"
@@ -118,6 +119,7 @@ ViewEntry.propTypes = {
   isAuth: PropTypes.bool,
   errors: PropTypes.object,
   getEntry: PropTypes.func.isRequired,
+  updateEntry: PropTypes.func.isRequired,
   history: PropTypes.object,
   match: PropTypes.object
 };
@@ -130,4 +132,4 @@ const mapStateToProps = state => ({
   isAuth: state.user.isAuth,
 });
 
-export default connect(mapStateToProps, { getEntry })(withRouter(ViewEntry));
+export default connect(mapStateToProps, { getEntry, updateEntry })(withRouter(ViewEntry));
