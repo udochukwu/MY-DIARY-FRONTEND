@@ -13,7 +13,7 @@
     "build": "webpack --mode production",
     "postinstall": "npm run build",
     "eslint": "eslint . --fix --ignore-path .gitignore",
-    "test": "jest \"-u\" --forceExit",
+    "test": "jest --coverage",
     "watch": "npm-watch"
   },
   "jest": {
@@ -26,7 +26,12 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "jest-static-stubs/$1",
       "\\.(css|less|scss|png)$": "identity-obj-proxy"
-    }
+    },
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "html"
+    ]
   },
   "keywords": [],
   "author": "",
