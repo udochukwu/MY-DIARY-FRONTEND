@@ -14,9 +14,8 @@ class Entries extends Component {
   }
 
   showEntries() {
-    const { entries } = this.props;
-    if (entries.length > 0) {
-      return entries.map(entry => (
+    if (this.props.entries.length > 0) {
+      return this.props.entries.map(entry => (
         <DisplayEntry
           key={entry.entryid}
           entryid={entry.entryid}

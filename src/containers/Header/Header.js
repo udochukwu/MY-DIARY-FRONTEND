@@ -16,6 +16,7 @@ class Header extends Component {
 
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.showSidebar = this.toggleSidebar.bind(this);
+    this.hideSidebar = this.hideSidebar.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -30,6 +31,12 @@ class Header extends Component {
     if (!this.state.showSidebar) {
       this.toggleSideBar();
     }
+  }
+
+  hideSidebar() {
+    this.setState({
+      showSidebar: false
+    });
   }
 
   logout(e) {
@@ -48,7 +55,7 @@ class Header extends Component {
         { showSidebar
         && <nav className="side-bar-nav " id="mySidebar">
           <div className="bg-light p-5">
-            <span id="navClsBtn" >&times;</span>
+            <span onClick={this.hideSidebar} id="navClsBtn" >&times;</span>
           </div>
           <ul>
             <li><Link to="/entries"><span className="mx-3"><i className="fas fa-book"></i></span>Entries</Link></li>

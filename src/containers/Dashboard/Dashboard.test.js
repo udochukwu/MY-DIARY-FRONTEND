@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import Dashboard from './Dashboard';
+import { SIGNUP } from '../../actionTypes';
+import { asyncActions } from '../../util/AsyncUtil';
 import { HomeStore } from './mockStore';
 
 
@@ -34,5 +36,20 @@ describe('<Dashboard/>', () => {
   });
   it('should have a list icon', () => {
     expect(myComponent.find('i.fa-list-ul').exists()).toBe(true);
+  });
+  it('should create an action for signup sucess', () => {
+    const payload = true;
+    const expectedAction = {
+      type: 'SIGNUP_SUCCESS',
+      payload
+    };
+    expect(asyncActions(SIGNUP).success(payload)).toEqual(expectedAction);
+  });
+  it('should create an action for signup failure', () => {
+    const expectedAction = {
+      type: 'SIGNUP_FAILING',
+      payload: { status: true, error: {} }
+    };
+    expect(asyncActions(SIGNUP).failure(true, {})).toEqual(expectedAction);
   });
 });
