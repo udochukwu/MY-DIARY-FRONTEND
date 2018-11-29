@@ -18,11 +18,11 @@ class Signup extends Component {
 
     this.change = this.change.bind(this);
     this.submit = this.submit.bind(this);
-    this.redirectToLogin = this.redirectToLogin.bind(this);
+    this.redirectToDashboard = this.redirectToDashboard.bind(this);
   }
 
-  redirectToLogin() {
-    this.props.history.push('/login');
+  redirectToDashboard() {
+    this.props.history.push('/dashboard');
   }
 
   change(e) {
@@ -44,7 +44,7 @@ class Signup extends Component {
     const { email, password, confirmPassword } = this.state;
     const { errors, failure, success, loading } = this.props;
     if (success) {
-      setTimeout(this.redirectToLogin, 5000);
+      setTimeout(this.redirectToDashboard, 5000);
     }
     let emailError, passwordError, confirmPasswordError = false;
     if (failure) {
@@ -65,7 +65,7 @@ class Signup extends Component {
             <div>
               <form onSubmit={this.submit}>
                {this.props.failure && this.showAlert('error', this.props.errors.errors)}
-               {success && this.showAlert('success', 'Account was successfully created, login to continue..')}
+               {success && this.showAlert('success', 'Account was successfully created, Redirecting...')}
                 <label htmlFor="email"><b>Email</b></label>
                 <input
                   type="email"

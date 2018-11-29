@@ -23,7 +23,7 @@ describe('<Header/>', () => {
     myComponent = component.shallow({ context: { store } }).shallow();
     expect(component.exists()).toBe(true);
   });
-  it('should have a horizontal navbar', () => {
-    expect(myComponent.find('nav.horizontal-nav').exists()).toBe(true);
-  });
+  // it('should have a function  that handles input change event', () => {
+  //   expect(myComponent.instance().logout).toBeDefined();
+  // });
 });

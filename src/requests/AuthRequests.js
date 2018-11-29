@@ -12,6 +12,8 @@ export const signup = payload => (dispatch) => {
     .then((response) => {
       dispatch(asyncActions(SIGNUP).loading(false));
       if (response.status === 201) {
+        localStorage.setItem('token', response.data.token);
+        setAuthToken(response.data.token);
         dispatch(asyncActions(SIGNUP).success(true));
       }
       return response;
